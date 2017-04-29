@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: movie-releases-frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: movie-releases-frontend
+    spec:
+      containers:
+      - resources:
+        name: movie-releases-frontend
+        image: disruptor.ninja:30500/robertbrem/movie-frontend:1.0.5
+        ports:
+        - name: nginx-port
+          containerPort: 80
+        volumeMounts:
+        - name: environment
+          mountPath: /usr/share/nginx/html/environment
+      volumes:
+      - name: environment
+        configMap:
+          name: movie-releases-frontend
+          items:
+          - key: environment.json
+            path: environment.json
+      imagePullSecrets:
+      - name: registrykey

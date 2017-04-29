@@ -8,8 +8,13 @@ class List {
         this.client = new Client();
         this.root = document.getElementById('app');
         this.client
-            .getMovies()
-            .then(movies => this.render(movies));
+            .loadEnvironment()
+            .then((environment) => {
+                let uri = `http://${environment.host}:${environment.movie_releases_port}/releases/resources/releases`;
+                this.client.getMovies(uri)
+                    .then(movies => this.render(movies));
+            });
+
     }
 
     render(movies) {
@@ -29,10 +34,15 @@ class List {
                 downloaded.addEventListener('change', (e) => {
                     let checkbox = e.target;
                     this.client
-                        .updateMovieDownloaded(checkbox.getAttribute('id'), checkbox.checked)
-                        .then(movie => console.log(movie));
+                        .loadEnvironment()
+                        .then((environment) => {
+                            let uri = `http://${environment.host}:${environment.movie_releases_port}/releases/resources/releases`;
+                            this.client
+                                .updateMovieDownloaded(uri, checkbox.getAttribute('id'), checkbox.checked)
+                                .then(movie => console.log(movie));
+                        });
                 });
-
+                
                 let movieElement = document.createElement('div');
                 movieElement.appendChild(image);
                 movieElement.appendChild(downloaded);
@@ -44,4 +54,6 @@ class List {
 
 }
 
-new List();
+new
+
+List();

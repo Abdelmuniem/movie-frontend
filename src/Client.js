@@ -1,13 +1,12 @@
 export default class Client {
 
     constructor() {
-        this.uri = "http://localhost:8080/releases/resources/releases";
     }
 
-    getMovies() {
+    loadEnvironment() {
         let result = new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
-            request.open('GET', this.uri);
+            request.open('GET', 'environment/environment.json');
             request.onreadystatechange = () => {
                 let raw = request.responseText;
                 let json = JSON.parse(raw);
@@ -19,10 +18,25 @@ export default class Client {
         return result;
     }
 
-    updateMovieDownloaded(id, downloaded) {
+    getMovies(uri) {
         let result = new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
-            request.open('PUT', this.uri + `/${id}/downloaded`);
+            request.open('GET', uri);
+            request.onreadystatechange = () => {
+                let raw = request.responseText;
+                let json = JSON.parse(raw);
+                resolve(json);
+            };
+            request.send();
+        });
+
+        return result;
+    }
+
+    updateMovieDownloaded(uri, id, downloaded) {
+        let result = new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+            request.open('PUT', uri + `/${id}/downloaded`);
             request.onreadystatechange = () => {
                 let raw = request.responseText;
                 let json = JSON.parse(raw);
