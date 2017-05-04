@@ -1,0 +1,7 @@
+{
+  "realm": "battleapp",
+  "auth-server-url": "https://disruptor.ninja:30182/auth",
+  "ssl-required": "none",
+  "resource": "movie-releases",
+  "public-client": true
+}

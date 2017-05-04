@@ -12,7 +12,7 @@ spec:
       containers:
       - resources:
         name: movie-releases-frontend
-        image: disruptor.ninja:30500/robertbrem/movie-frontend:1.0.5
+        image: disruptor.ninja:30500/robertbrem/movie-frontend:1.0.8
         ports:
         - name: nginx-port
           containerPort: 80
@@ -26,5 +26,7 @@ spec:
           items:
           - key: environment.json
             path: environment.json
+          - key: keycloak.json
+            path: keycloak.json
       imagePullSecrets:
       - name: registrykey

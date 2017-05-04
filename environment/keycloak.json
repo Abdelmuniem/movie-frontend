@@ -1,0 +1,7 @@
+{
+  "realm": "battleapp-local",
+  "auth-server-url": "http://keycloak:8080/auth",
+  "ssl-required": "none",
+  "resource": "movie-releases",
+  "public-client": true
+}

@@ -1,4 +1,4 @@
 {
   "host": "localhost",
-  "movie_releases_port": 8080
+  "movie_releases_port": 9080
 }
